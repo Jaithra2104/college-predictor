@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Smart Rank - Splash Screen</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #021B79, #0575E6);
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Animated Background Particles */
+    .particles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.2);
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      animation: floatUp 6s infinite linear;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+    }
+
+    /* Expanding Effect */
+    .expand {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      border-radius: 50%;
+      animation: expandScreen 2s 1.5s ease-in-out forwards;
+    }
+
+    @keyframes expandScreen {
+      0% { transform: scale(1); opacity: 0.9; }
+      100% { transform: scale(35); opacity: 0; }
+    }
+
+    /* Logo Appearance */
+    .logo-container {
+      position: absolute;
+      opacity: 0;
+      text-align: center;
+      animation: fadeIn 1.5s 2.2s ease-in-out forwards;
+    }
+
+    .logo-container h1 {
+      color: #fff;
+      font-size: 4rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      text-shadow: 0px 0px 15px rgba(255, 255, 255, 0.8);
+    }
+
+    .logo-container p {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1.5rem;
+      font-weight: 300;
+      margin-top: 10px;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: scale(0.85); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    /* Exit Animation Before Redirect */
+    .fade-out {
+      animation: fadeOut 1s ease-in-out forwards;
+    }
+
+    @keyframes fadeOut {
+      0% { opacity: 1; transform: scale(1); }
+      100% { opacity: 0; transform: scale(0.9); }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles"></div> <!-- Background Particles -->
+  <div class="expand"></div>  <!-- Expanding Glass Effect -->
+  
+  <div class="logo-container" id="logoContainer">
+    <h1>Smart Rank</h1>
+    <p>Find Your Best College Instantly</p>
+  </div>
+
+  <script>
+    // Generate background particles
+    function createParticles(num) {
+      const container = document.querySelector('.particles');
+      for (let i = 0; i < num; i++) {
+        let particle = document.createElement('div');
+        particle.classList.add('particle');
+        particle.style.left = Math.random() * 100 + 'vw';
+        particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+        container.appendChild(particle);
+      }
+    }
+    createParticles(30);
+
+    // Smooth Exit Animation Before Redirect
+    setTimeout(() => {
+      document.body.classList.add('fade-out');
+      setTimeout(() => {
+        window.location.href = "/home";
+      }, 1000); // Wait for fade-out to complete before redirecting
+    }, 4000);
+  </script>
+</body>
+</html>
