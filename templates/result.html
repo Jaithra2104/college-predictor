@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Rank - Prediction Results</title>
+
+    <!-- Google Fonts & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: radial-gradient(circle at 50% 50%, #111827 0%, #030712 100%);
+            color: white;
+            text-align: center;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background: rgba(17, 24, 39, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            color: white;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .navbar .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #FBBF24;
+            text-shadow: 0 0 10px rgba(251, 191, 36, 0.2);
+        }
+
+        .navbar a {
+            color: #e5e7eb;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 8px 16px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .navbar a:hover {
+            color: #FBBF24;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 70px;
+            padding: 80px 20px;
+            background: linear-gradient(rgba(17, 24, 39, 0.4), rgba(3, 7, 18, 0.95)), url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1200') center/cover no-repeat;
+            color: white;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.6);
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 30%, #9ca3af 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-top: 10px;
+            color: #cbd5e1;
+        }
+
+        /* Search and Filter Bar */
+        .filter-bar {
+            background: rgba(31, 41, 55, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .filter-container {
+            max-width: 1200px;
+            width: 90%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #FBBF24;
+        }
+
+        .search-box input {
+            width: 100%;
+            background-color: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 12px 12px 12px 45px;
+            color: white;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #FBBF24;
+            box-shadow: 0 0 8px rgba(251, 191, 36, 0.25);
+        }
+
+        .sort-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 6px 15px;
+        }
+
+        .sort-box i {
+            color: #FBBF24;
+        }
+
+        .sort-box select {
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 6px;
+            font-size: 14px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .sort-box select option {
+            background-color: #111827;
+            color: white;
+        }
+
+        /* College List */
+        .college-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            padding: 50px 20px;
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .college-card {
+            background: rgba(31, 41, 55, 0.45);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-in-out forwards;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 400px;
+        }
+
+        .college-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            border-color: rgba(251, 191, 36, 0.3);
+            background: rgba(31, 41, 55, 0.6);
+        }
+
+        .college-logo-container {
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        .college-logo {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            margin: 0 auto;
+            border-radius: 50%;
+            border: 2px solid #FBBF24;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 5px;
+            display: block;
+        }
+
+        .badge-tier {
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: inline-block;
+            padding: 3px 10px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .badge-tier.tier1 {
+            background-color: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+            border: 1px solid rgba(239, 68, 68, 0.4);
+        }
+
+        .badge-tier.tier2 {
+            background-color: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+            border: 1px solid rgba(59, 130, 246, 0.4);
+        }
+
+        .badge-tier.tier3 {
+            background-color: rgba(16, 185, 129, 0.2);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.4);
+        }
+
+        .college-card h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin: 15px 0 8px 0;
+            line-height: 1.4;
+        }
+
+        .college-card h2 a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .college-card h2 a:hover {
+            color: #FBBF24;
+        }
+
+        .location-text {
+            font-size: 13px;
+            color: #9ca3af;
+            margin-bottom: 15px;
+        }
+
+        .card-details {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 15px;
+            text-align: left;
+            margin-top: auto;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .detail-label {
+            color: #9ca3af;
+        }
+
+        .detail-value {
+            color: #f3f4f6;
+            font-weight: 500;
+        }
+
+        .btn-card-visit {
+            display: block;
+            background: rgba(251, 191, 36, 0.1);
+            color: #FBBF24;
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            padding: 10px 0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .btn-card-visit:hover {
+            background: #FBBF24;
+            color: #111827;
+            border-color: #FBBF24;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(251, 191, 36, 0.25);
+        }
+
+        /* Footer */
+        .footer {
+            padding: 25px;
+            background: #030712;
+            text-align: center;
+            color: #9ca3af;
+            font-size: 14px;
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">Smart Rank</div>
+        <div>
+            <a href="/home"><i class="fas fa-home"></i> Home</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>The matches</h1>
+        <p>Parsed by the algorithm. Here is where you stand.</p>
+    </div>
+
+    <!-- Search and Filter Bar -->
+    <div class="filter-bar">
+        <div class="filter-container">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search colleges by name or location..." onkeyup="filterColleges()">
+            </div>
+            <div class="sort-box">
+                <i class="fas fa-sort-amount-down"></i>
+                <select id="sortSelect" onchange="sortColleges()">
+                    <option value="rank_asc">Sort by Cutoff: Low to High</option>
+                    <option value="rank_desc">Sort by Cutoff: High to Low</option>
+                    <option value="fees_asc">Sort by Fees: Low to High</option>
+                    <option value="fees_desc">Sort by Fees: High to Low</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- College Listings -->
+    {% if colleges %}
+        <div class="college-container" id="collegeContainer">
+            {% for college in colleges %}
+            <div class="college-card" data-name="{{ college.name }}" data-location="{{ college.location }}" data-rank="{{ college.cutoff_rank }}" data-fees="{{ college.fees }}" style="animation-delay: {{ loop.index0 * 0.05 }}s;">
+                <div>
+                    <div class="college-logo-container">
+                        <img src="{{ college.image_url }}" alt="{{ college.name }} Logo" class="college-logo" onerror="this.src='/static/images/image1.jpeg';">
+                        <span class="badge-tier {{ college.tier | lower | replace(' ', '') }}">{{ college.tier }}</span>
+                    </div>
+                    <h2><a href="{{ college.official_website }}" target="_blank">{{ college.name }}</a></h2>
+                    <p class="location-text"><i class="fas fa-map-marker-alt"></i> {{ college.location }}</p>
+                </div>
+                
+                <div class="card-details">
+                    <div class="detail-row">
+                        <span class="detail-label"><i class="fas fa-trophy"></i> Cutoff Rank:</span>
+                        <span class="detail-value"><strong>{{ college.cutoff_rank }}</strong></span>
+                    </div>
+                    {% if college.fees %}
+                    <div class="detail-row">
+                        <span class="detail-label"><i class="fas fa-indian-rupee-sign"></i> Fees:</span>
+                        <span class="detail-value">₹{{ college.fees }}</span>
+                    </div>
+                    {% endif %}
+                    {% if college.placements %}
+                    <div class="detail-row">
+                        <span class="detail-label"><i class="fas fa-briefcase"></i> Placements:</span>
+                        <span class="detail-value">{{ college.placements }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div>
+                    <a href="{{ college.official_website }}" target="_blank" class="btn-card-visit">Assert Dominance</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <!-- Fallback Sections when 0 strict matches are found -->
+        <div class="container my-5 text-center px-4" style="max-width: 800px; margin: 50px auto;">
+            <div class="p-5" style="background: rgba(31, 41, 55, 0.45); border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.08); backdrop-filter: blur(12px);">
+                <i class="fas fa-circle-exclamation fa-3x text-warning mb-3" style="color: #fbbf24; font-size: 45px;"></i>
+                <h2 class="mb-3" style="color: #FBBF24; font-size: 26px; font-weight: 700; margin-top: 15px;">Reality Check</h2>
+                <p class="text-secondary" style="margin-top: 10px; color: #9ca3af;">Your rank of <strong>{{ rank }}</strong> did not meet the entry criteria for colleges in <strong>{{ location }}</strong> under category <strong>{{ category }}</strong>.</p>
+                <p class="text-secondary small" style="margin-top: 5px; color: #6b7280; font-size: 13px;">The cutoffs here are guarded by high performers. Do not fret; the algorithm has mapped alternative territories below where you can still thrive.</p>
+                <a href="/home" class="btn-card-visit" style="display: inline-block; width: auto; padding: 10px 25px; margin-top: 25px;">Re-evaluate Aspirations</a>
+            </div>
+        </div>
+
+        {% if stretch_colleges %}
+        <div class="container my-5 text-start" style="max-width: 1200px; width: 90%; margin: 40px auto;">
+            <h3 class="mb-3" style="color: #f87171; border-left: 4px solid #f87171; padding-left: 15px; font-size: 20px; font-weight: 600;"><i class="fas fa-chart-line"></i> Ambitious Conquests in {{ location }}</h3>
+            <p class="text-secondary mb-3" style="font-size: 13px; color: #9ca3af; margin-bottom: 20px;">These colleges have cutoffs slightly beyond your current score. Secure them in later rounds if you dare to challenge them:</p>
+            <div class="college-container" style="padding: 10px 0;">
+                {% for college in stretch_colleges %}
+                <div class="college-card" data-name="{{ college.name }}" data-location="{{ college.location }}" data-rank="{{ college.cutoff_rank }}" data-fees="{{ college.fees }}" style="animation-delay: {{ loop.index0 * 0.05 }}s; opacity: 1; transform: translateY(0);">
+                    <div>
+                        <div class="college-logo-container">
+                            <img src="{{ college.image_url }}" alt="{{ college.name }} Logo" class="college-logo" onerror="this.src='/static/images/image1.jpeg';">
+                            <span class="badge-tier {{ college.tier | lower | replace(' ', '') }}">{{ college.tier }}</span>
+                        </div>
+                        <h2><a href="{{ college.official_website }}" target="_blank">{{ college.name }}</a></h2>
+                        <p class="location-text"><i class="fas fa-map-marker-alt"></i> {{ college.location }}</p>
+                    </div>
+                    
+                    <div class="card-details">
+                        <div class="detail-row">
+                            <span class="detail-label"><i class="fas fa-trophy"></i> Cutoff Rank:</span>
+                            <span class="detail-value" style="color: #f87171;"><strong>{{ college.cutoff_rank }}</strong></span>
+                        </div>
+                        {% if college.fees %}
+                        <div class="detail-row">
+                            <span class="detail-label"><i class="fas fa-indian-rupee-sign"></i> Fees:</span>
+                            <span class="detail-value">₹{{ college.fees }}</span>
+                        </div>
+                        {% endif %}
+                        {% if college.placements %}
+                        <div class="detail-row">
+                            <span class="detail-label"><i class="fas fa-briefcase"></i> Placements:</span>
+                            <span class="detail-value">{{ college.placements }}</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div>
+                        <a href="{{ college.official_website }}" target="_blank" class="btn-card-visit">Assert Dominance</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if suggested_colleges %}
+        <div class="container my-5 text-start" style="max-width: 1200px; width: 90%; margin: 40px auto;">
+            <h3 class="mb-3" style="color: #34d399; border-left: 4px solid #34d399; padding-left: 15px; font-size: 20px; font-weight: 600;"><i class="fas fa-compass"></i> Elite Alternatives in Other Lands</h3>
+            <p class="text-secondary mb-3" style="font-size: 13px; color: #9ca3af; margin-bottom: 20px;">These campuses strictly match your rank and caliber, but require expanding your geographic empire:</p>
+            <div class="college-container" style="padding: 10px 0;">
+                {% for college in suggested_colleges %}
+                <div class="college-card" data-name="{{ college.name }}" data-location="{{ college.location }}" data-rank="{{ college.cutoff_rank }}" data-fees="{{ college.fees }}" style="animation-delay: {{ loop.index0 * 0.05 }}s; opacity: 1; transform: translateY(0);">
+                    <div>
+                        <div class="college-logo-container">
+                            <img src="{{ college.image_url }}" alt="{{ college.name }} Logo" class="college-logo" onerror="this.src='/static/images/image1.jpeg';">
+                            <span class="badge-tier {{ college.tier | lower | replace(' ', '') }}">{{ college.tier }}</span>
+                        </div>
+                        <h2><a href="{{ college.official_website }}" target="_blank">{{ college.name }}</a></h2>
+                        <p class="location-text"><i class="fas fa-map-marker-alt"></i> {{ college.location }}</p>
+                    </div>
+                    
+                    <div class="card-details">
+                        <div class="detail-row">
+                            <span class="detail-label"><i class="fas fa-trophy"></i> Cutoff Rank:</span>
+                            <span class="detail-value"><strong>{{ college.cutoff_rank }}</strong></span>
+                        </div>
+                        {% if college.fees %}
+                        <div class="detail-row">
+                            <span class="detail-label"><i class="fas fa-indian-rupee-sign"></i> Fees:</span>
+                            <span class="detail-value">₹{{ college.fees }}</span>
+                        </div>
+                        {% endif %}
+                        {% if college.placements %}
+                        <div class="detail-row">
+                            <span class="detail-label"><i class="fas fa-briefcase"></i> Placements:</span>
+                            <span class="detail-value">{{ college.placements }}</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div>
+                        <a href="{{ college.official_website }}" target="_blank" class="btn-card-visit">Assert Dominance</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+    {% endif %}
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2025 Smart Rank. All rights reserved.</p>
+    </div>
+
+    <script>
+        function filterColleges() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toLowerCase();
+            const container = document.getElementById('collegeContainer');
+            const cards = container.getElementsByClassName('college-card');
+
+            for (let i = 0; i < cards.length; i++) {
+                const name = cards[i].getAttribute('data-name').toLowerCase();
+                const location = cards[i].getAttribute('data-location').toLowerCase();
+                if (name.includes(filter) || location.includes(filter)) {
+                    cards[i].style.display = "";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+
+        function sortColleges() {
+            const select = document.getElementById('sortSelect');
+            const val = select.value;
+            const container = document.getElementById('collegeContainer');
+            const cards = Array.from(container.getElementsByClassName('college-card'));
+
+            cards.sort((a, b) => {
+                let valA, valB;
+                if (val.startsWith('rank')) {
+                    valA = parseInt(a.getAttribute('data-rank')) || 0;
+                    valB = parseInt(b.getAttribute('data-rank')) || 0;
+                } else if (val.startsWith('fees')) {
+                    valA = parseInt(a.getAttribute('data-fees')) || 0;
+                    valB = parseInt(b.getAttribute('data-fees')) || 0;
+                }
+
+                if (val.endsWith('asc')) {
+                    return valA - valB;
+                } else {
+                    return valB - valA;
+                }
+            });
+
+            // Re-append cards in sorted order
+            cards.forEach(card => container.appendChild(card));
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,11 @@
+APPLETS
+
+> it is a special program which is used to create webpages
+>it runs inside the browser and works at client side
+>unlike java application's applet do not run with Main()
+
+ADVANTAGES
+>platform independent
+>can run on any browser
+>simple java program
+>small in size 

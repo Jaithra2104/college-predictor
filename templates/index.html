@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Rank - College Admission Predictor</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+  <!-- Google Font: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* Global Styles */
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at 50% 50%, #111827 0%, #030712 100%);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Navbar Styling */
+    .navbar-custom {
+      background: rgba(17, 24, 39, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 15px 0;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    }
+    .navbar-custom .navbar-brand {
+      display: flex;
+      align-items: center;
+    }
+    .navbar-logo {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
+    .navbar-brand-title {
+      font-weight: 700;
+      font-size: 2rem;
+      color: #FBBF24; /* Amber/gold */
+      text-shadow: 0 0 10px rgba(251, 191, 36, 0.2);
+    }
+    .navbar-custom .navbar-nav .nav-link {
+      color: #e5e7eb;
+      margin-left: 20px;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    .navbar-custom .navbar-nav .nav-link:hover {
+      color: #FBBF24;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      position: relative;
+      width: 100%;
+      max-width: 1150px;
+      height: 180px;
+      margin: 20px auto 0 auto;
+      border-radius: 16px;
+      overflow: hidden;
+      background-image: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1200');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 50px;
+      transition: background-image 1s ease-in-out, opacity 0.5s ease-in-out;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to bottom, rgba(17, 24, 39, 0.3) 0%, rgba(3, 7, 18, 0.95) 100%);
+      z-index: 2;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+    }
+    .hero-content h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #ffffff 30%, #9ca3af 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    }
+    .hero-content p {
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: #d1d5db;
+    }
+
+    /* Glassmorphism Form Container */
+    .form-container {
+      max-width: 1150px;
+      background: rgba(31, 41, 55, 0.45); /* Translucent dark gray */
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      margin: 30px auto 50px auto;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      position: relative;
+      z-index: 4;
+      color: #fff;
+    }
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-weight: 700;
+      color: #FBBF24;
+      text-shadow: 0 0 10px rgba(251, 191, 36, 0.25);
+    }
+    .form-label {
+      font-weight: 500;
+      color: #e5e7eb;
+      margin-bottom: 8px;
+    }
+    .input-group-text {
+      background-color: rgba(17, 24, 39, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px 0 0 10px;
+      color: #FBBF24;
+      min-width: 46px;
+      justify-content: center;
+    }
+    input[type="number"],
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    select {
+      background-color: rgba(17, 24, 39, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-left: none;
+      border-radius: 0 10px 10px 0;
+      padding: 12px;
+      width: 100%;
+      color: #fff !important;
+      transition: all 0.3s ease;
+    }
+    select option {
+      background-color: #111827;
+      color: #fff;
+    }
+    input::placeholder {
+      color: rgba(255, 255, 255, 0.35) !important;
+    }
+    input:focus,
+    select:focus {
+      background-color: rgba(17, 24, 39, 0.7) !important;
+      border-color: #FBBF24 !important;
+      box-shadow: 0 0 10px rgba(251, 191, 36, 0.35) !important;
+      outline: none;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #FBBF24 0%, #D97706 100%);
+      border: none;
+      padding: 14px 0;
+      border-radius: 10px;
+      width: 100%;
+      font-size: 17px;
+      font-weight: 600;
+      margin-top: 15px;
+      color: #111827;
+      box-shadow: 0 4px 15px rgba(217, 119, 6, 0.3);
+      transition: all 0.3s ease;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+      color: #111827;
+      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.55);
+    }
+    .auth-links {
+      text-align: center;
+      margin-top: 20px;
+      color: #9ca3af;
+    }
+    .auth-links a {
+      color: #FBBF24;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    .auth-links a:hover {
+      color: #f59e0b;
+      text-decoration: underline;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: auto;
+      font-size: 0.9rem;
+      color: #9ca3af;
+      padding: 30px 0;
+      background: #030712;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* Sidebar Layouts */
+    .sidebar-card {
+      background: rgba(17, 24, 39, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 25px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .workspace-card {
+      background: rgba(17, 24, 39, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      border-radius: 16px;
+      padding: 30px;
+      height: 100%;
+    }
+
+    /* Vertical Stepper Styling */
+    .vertical-stepper {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      padding-left: 10px;
+      margin-top: 20px;
+    }
+    .vertical-stepper::before {
+      content: "";
+      position: absolute;
+      left: 29px;
+      top: 10px;
+      width: 4px;
+      height: calc(100% - 20px);
+      background-color: rgba(255, 255, 255, 0.08);
+      z-index: 1;
+      border-radius: 2px;
+    }
+    .step-line-progress {
+      position: absolute;
+      left: 29px;
+      top: 10px;
+      width: 4px;
+      background: linear-gradient(to bottom, #FBBF24 0%, #D97706 100%);
+      z-index: 2;
+      border-radius: 2px;
+      transition: height 0.4s ease;
+      box-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+    }
+    .vertical-step-node {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      position: relative;
+      z-index: 3;
+      gap: 15px;
+      user-select: none;
+    }
+    .vertical-step-num {
+      width: 38px;
+      height: 38px;
+      background-color: #1f2937;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      color: #9ca3af;
+      transition: all 0.4s ease;
+      flex-shrink: 0;
+    }
+    .vertical-step-node.active .vertical-step-num {
+      background: linear-gradient(135deg, #FBBF24 0%, #D97706 100%);
+      color: #111827;
+      border-color: #FBBF24;
+      box-shadow: 0 0 15px rgba(251, 191, 36, 0.5);
+      transform: scale(1.1);
+    }
+    .vertical-step-node.completed .vertical-step-num {
+      background-color: #10b981;
+      color: #fff;
+      border-color: #10b981;
+    }
+    .vertical-step-text {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+    .vertical-step-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #9ca3af;
+      transition: color 0.4s ease;
+    }
+    .vertical-step-desc {
+      font-size: 11px;
+      color: #6b7280;
+    }
+    .vertical-step-node.active .vertical-step-title {
+      color: #FBBF24;
+    }
+    .vertical-step-node.completed .vertical-step-title {
+      color: #10b981;
+    }
+
+    /* Tip Card Styling */
+    .tip-card {
+      background: rgba(251, 191, 36, 0.05);
+      border: 1px dashed rgba(251, 191, 36, 0.25);
+      border-radius: 12px;
+      padding: 15px;
+      margin-top: 30px;
+      transition: all 0.3s ease;
+    }
+    .tip-card:hover {
+      background: rgba(251, 191, 36, 0.08);
+      border-color: rgba(251, 191, 36, 0.4);
+    }
+    .tip-card-header {
+      font-size: 13px;
+      font-weight: 700;
+      color: #FBBF24;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .tip-card-body {
+      font-size: 12px;
+      color: #9ca3af;
+      line-height: 1.6;
+      text-align: left;
+    }
+
+    /* Location Badge Styling */
+    .location-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 12px;
+      color: #d1d5db;
+      cursor: pointer;
+      margin-top: 8px;
+      margin-right: 6px;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+    .location-badge:hover {
+      background: rgba(251, 191, 36, 0.15);
+      border-color: #FBBF24;
+      color: #fff;
+      transform: translateY(-1px);
+    }
+    .location-badge:active {
+      transform: translateY(1px);
+    }
+
+    /* Card Selector Styles */
+    .card-selector {
+      background: rgba(17, 24, 39, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 15px 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      user-select: none;
+    }
+    .card-selector:hover {
+      border-color: rgba(251, 191, 36, 0.3);
+      transform: translateY(-2px);
+      background: rgba(17, 24, 39, 0.6);
+    }
+    .card-selector.active {
+      border-color: #FBBF24 !important;
+      background: rgba(251, 191, 36, 0.08) !important;
+      box-shadow: 0 0 15px rgba(251, 191, 36, 0.25) !important;
+    }
+    .small-text {
+      font-size: 11px;
+      font-weight: 500;
+    }
+    .tier-number {
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    /* Pill Selector Styles */
+    .pill-selector {
+      background: rgba(17, 24, 39, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 30px;
+      padding: 8px 18px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      color: #cbd5e1;
+    }
+    .pill-selector:hover {
+      border-color: rgba(251, 191, 36, 0.3);
+      background: rgba(17, 24, 39, 0.6);
+      color: #fff;
+    }
+    .pill-selector.active {
+      background: #FBBF24 !important;
+      color: #111827 !important;
+      border-color: #FBBF24 !important;
+      box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+    }
+
+    /* Form Step Transitions */
+    .form-step {
+      display: none;
+      opacity: 0;
+      transform: translateX(20px);
+      transition: all 0.4s ease;
+    }
+    .form-step.active-step {
+      display: block;
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .btn-nav {
+      min-width: 100px;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+    .btn-secondary.btn-nav {
+      background-color: #374151;
+      border: none;
+      color: #e5e7eb;
+    }
+    .btn-secondary.btn-nav:hover {
+      background-color: #4b5563;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <svg class="navbar-logo" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#004080;" />
+              <stop offset="100%" style="stop-color:#0074D9;" />
+            </linearGradient>
+          </defs>
+          <circle cx="100" cy="100" r="90" fill="url(#grad1)" />
+          <text x="100" y="115" font-family="Poppins, sans-serif" font-size="50" fill="#fff" text-anchor="middle" font-weight="bold">SR</text>
+        </svg>
+      </a>
+      <span class="navbar-brand-title">Smart Rank</span>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <div class="hero-section" id="heroSection">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Smart Rank</h1>
+      <p>Stop guessing. Claim your rightful place at the top.</p>
+    </div>
+  </div>
+
+  <!-- Form Container -->
+  <div class="container form-container">
+    {% if session.username %}
+      <div class="row g-4 text-start">
+        
+        <!-- Left Sidebar Column -->
+        <div class="col-lg-4 col-md-5">
+          <div class="sidebar-card">
+            <div>
+              <h3 class="mb-4" style="color: #FBBF24; font-weight: 700; font-size: 20px; letter-spacing: 0.5px;">The Path to Elite</h3>
+              
+              <!-- Vertical Stepper Progress Indicator -->
+              <div class="vertical-stepper">
+                <div class="step-line-progress" id="verticalProgressBar" style="height: 0%;"></div>
+                
+                <div class="vertical-step-node active" id="stepNode1" onclick="changeStepTo(1)">
+                  <div class="vertical-step-num">1</div>
+                  <div class="vertical-step-text">
+                    <span class="vertical-step-title">Declare Identity</span>
+                    <span class="vertical-step-desc">Tell us who is competing</span>
+                  </div>
+                </div>
+                
+                <div class="vertical-step-node" id="stepNode2" onclick="changeStepTo(2)">
+                  <div class="vertical-step-num">2</div>
+                  <div class="vertical-step-text">
+                    <span class="vertical-step-title">Academic Power</span>
+                    <span class="vertical-step-desc">Ranks that define your worth</span>
+                  </div>
+                </div>
+                
+                <div class="vertical-step-node" id="stepNode3" onclick="changeStepTo(3)">
+                  <div class="vertical-step-num">3</div>
+                  <div class="vertical-step-text">
+                    <span class="vertical-step-title">Target Empire</span>
+                    <span class="vertical-step-desc">Demarcate your destination</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Dynamic Help Tip Card -->
+            <div class="tip-card">
+              <div class="tip-card-header">
+                <i class="fas fa-crown"></i> Algorithm Wisdom
+              </div>
+              <div class="tip-card-body" id="tipText">
+                Declare your credentials with absolute precision. A future leader must start with a flawless profile.
+              </div>
+            </div>
+            
+            <div class="auth-links mt-4 text-center text-md-start">
+              <p style="font-size: 13px; color: #9ca3af; margin-bottom: 0;">Logged in as <strong>{{ session.username }}</strong><br><a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Logout Session</a></p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Right Main Form Workspace -->
+        <div class="col-lg-8 col-md-7">
+          <div class="workspace-card">
+            <h2 class="mb-4" style="color: #FBBF24; font-weight: 700; font-size: 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 12px; letter-spacing: 0.5px;">Claim Your Future</h2>
+            
+            <form action="/predict" method="POST" id="wizardForm">
+
+              <!-- Step 1: Student Profile -->
+              <div class="form-step active-step" id="step1">
+                <div class="mb-4">
+                  <label for="name" class="form-label">Full Name:</label>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+                    <input type="text" name="name" id="name" class="form-control" placeholder="Enter your full name" required>
+                  </div>
+                </div>
+
+                <div class="mb-4">
+                  <label for="hallticket" class="form-label">Hall Ticket Number:</label>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="fa-solid fa-id-card"></i></span>
+                    <input type="text" name="hallticket" id="hallticket" class="form-control" placeholder="Enter your hall ticket no" required>
+                  </div>
+                </div>
+
+                <div class="mb-4">
+                  <label class="form-label d-block mb-2">Gender:</label>
+                  <div class="row g-3">
+                    <div class="col-4">
+                      <div class="card-selector text-center" id="genderMale" onclick="selectGender('Male', this)">
+                        <i class="fa-solid fa-mars fa-2x mb-2 text-info"></i>
+                        <div class="small-text font-weight-bold">Male</div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="card-selector text-center" id="genderFemale" onclick="selectGender('Female', this)">
+                        <i class="fa-solid fa-venus fa-2x mb-2 text-danger"></i>
+                        <div class="small-text font-weight-bold">Female</div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="card-selector text-center" id="genderOther" onclick="selectGender('Other', this)">
+                        <i class="fa-solid fa-transgender fa-2x mb-2 text-warning"></i>
+                        <div class="small-text font-weight-bold">Other</div>
+                      </div>
+                    </div>
+                  </div>
+                  <input type="hidden" name="gender" id="genderInput" required>
+                </div>
+              </div>
+
+              <!-- Step 2: Exam & Results -->
+              <div class="form-step" id="step2">
+                <div class="mb-4">
+                  <label class="form-label d-block mb-2">Type of Exam:</label>
+                  <div class="row g-2">
+                    <div class="col-4">
+                      <div class="card-selector text-center" onclick="selectExam('JEE Main', this)">
+                        <i class="fa-solid fa-graduation-cap mb-1 text-info"></i>
+                        <div class="small-text">JEE Main</div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="card-selector text-center" onclick="selectExam('JEE Advanced', this)">
+                        <i class="fa-solid fa-award mb-1 text-warning"></i>
+                        <div class="small-text">JEE Adv</div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="card-selector text-center" onclick="selectExam('TS EAMCET', this)">
+                        <i class="fa-solid fa-atom mb-1 text-primary"></i>
+                        <div class="small-text">TS EAMCET</div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="card-selector text-center" onclick="selectExam('AP EAMCET', this)">
+                        <i class="fa-solid fa-dna mb-1 text-success"></i>
+                        <div class="small-text">AP EAMCET</div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="card-selector text-center" onclick="selectExam('KCET', this)">
+                        <i class="fa-solid fa-flask mb-1 text-danger"></i>
+                        <div class="small-text">KCET</div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="card-selector text-center" onclick="selectExam('MHT CET', this)">
+                        <i class="fa-solid fa-brain mb-1 text-info"></i>
+                        <div class="small-text">MHT CET</div>
+                      </div>
+                    </div>
+                  </div>
+                  <input type="hidden" name="exam_type" id="examTypeInput" required>
+                </div>
+
+                <div class="mb-4">
+                  <label for="rank" class="form-label mb-2">Your Rank:</label>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="fa-solid fa-trophy"></i></span>
+                    <input type="number" class="form-control" name="rank" id="rank" required placeholder="Enter your rank">
+                  </div>
+                </div>
+
+                <div class="mb-4">
+                  <label class="form-label d-block mb-2">Category:</label>
+                  <div class="d-flex flex-wrap gap-2 justify-content-start">
+                    <div class="pill-selector" onclick="selectCategory('OC', this)">OC</div>
+                    <div class="pill-selector" onclick="selectCategory('BC', this)">BC</div>
+                    <div class="pill-selector" onclick="selectCategory('SC', this)">SC</div>
+                    <div class="pill-selector" onclick="selectCategory('ST', this)">ST</div>
+                    <div class="pill-selector" onclick="selectCategory('EWS', this)">EWS</div>
+                  </div>
+                  <input type="hidden" name="category" id="categoryInput" required>
+                </div>
+              </div>
+
+              <!-- Step 3: Preferences -->
+              <div class="form-step" id="step3">
+                <div class="mb-4">
+                  <label class="form-label d-block mb-2">Preferred College Tier:</label>
+                  <div class="row g-2">
+                    <div class="col-3">
+                      <div class="card-selector text-center" onclick="selectTier('Tier 1', this)">
+                        <div class="tier-number text-danger">T1</div>
+                        <div class="small-text mt-1">Tier 1</div>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="card-selector text-center" onclick="selectTier('Tier 2', this)">
+                        <div class="tier-number text-primary">T2</div>
+                        <div class="small-text mt-1">Tier 2</div>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="card-selector text-center" onclick="selectTier('Tier 3', this)">
+                        <div class="tier-number text-success">T3</div>
+                        <div class="small-text mt-1">Tier 3</div>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="card-selector text-center" onclick="selectTier('All', this)">
+                        <div class="tier-number text-warning">ALL</div>
+                        <div class="small-text mt-1">All</div>
+                      </div>
+                    </div>
+                  </div>
+                  <input type="hidden" name="college_type" id="collegeTypeInput" required>
+                </div>
+
+                <div class="mb-4">
+                  <label for="location" class="form-label mb-2">Preferred Location:</label>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="fa-solid fa-location-dot"></i></span>
+                    <input type="text" class="form-control" name="location" id="location" placeholder="e.g. Hyderabad, Delhi (or 'All')" required>
+                  </div>
+                  <div class="mt-2 text-start">
+                    <span class="text-secondary small d-block">Quick Select States/Cities:</span>
+                    <div class="location-badge" onclick="fillLocation('Telangana')">Telangana</div>
+                    <div class="location-badge" onclick="fillLocation('AP')">Andhra Pradesh (AP)</div>
+                    <div class="location-badge" onclick="fillLocation('Delhi')">Delhi</div>
+                    <div class="location-badge" onclick="fillLocation('Hyderabad')">Hyderabad</div>
+                    <div class="location-badge" onclick="fillLocation('All')">All Locations</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Navigation Buttons -->
+              <div class="d-flex justify-content-between mt-5" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 20px;">
+                <button type="button" class="btn btn-secondary btn-nav d-none" id="prevBtn" onclick="changeStep(-1)">Back</button>
+                <button type="button" class="btn btn-primary btn-nav ms-auto" id="nextBtn">Next</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    {% else %}
+      <div class="form-container px-3" style="max-width: 500px; margin: 40px auto;">
+        <div class="workspace-card" style="padding: 40px;">
+          <h2 class="mb-4" style="color: #FBBF24; font-weight: 700; font-size: 24px;">Login to Smart Rank</h2>
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert" style="font-size: 14px;">
+                  {{ message }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+          <form method="POST" action="/home" class="text-start">
+            <div class="mb-3">
+              <label for="username" class="form-label">Username:</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+                <input type="text" class="form-control" name="username" id="username" required placeholder="Enter your username">
+              </div>
+            </div>
+            <div class="mb-4">
+              <label for="password" class="form-label">Password:</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+                <input type="password" class="form-control" name="password" id="password" required placeholder="Enter your password">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+            <p class="mt-4 text-center mb-0" style="font-size: 14px; color: #9ca3af;">Don't have an account? <a href="{{ url_for('signup') }}" style="color: #FBBF24; text-decoration: none; font-weight: 500;">Sign Up</a></p>
+          </form>
+        </div>
+      </div>
+    {% endif %}
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 Smart Rank. All rights reserved.</p>
+  </footer>
+
+  <!-- Hero Background Rotation -->
+  <script>
+    const bgImages = [
+      'https://images.unsplash.com/photo-1523050854058-8df90110c9f1',
+      'https://images.unsplash.com/photo-1532012197267-da84d127e765',
+      'https://images.unsplash.com/photo-1573164713988-8665fc963095',
+      'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f'
+    ];
+    let currentIndex = 0;
+    const heroSection = document.getElementById('heroSection');
+    function changeBackground() {
+      heroSection.style.opacity = 0;
+      setTimeout(() => {
+        currentIndex = (currentIndex + 1) % bgImages.length;
+        heroSection.style.backgroundImage = `url('${bgImages[currentIndex]}')`;
+        heroSection.style.opacity = 1;
+      }, 500);
+    }
+    setInterval(changeBackground, 10000);
+  </script>
+
+  <!-- Interactive Wizard Script -->
+  <script>
+    let currentStep = 1;
+    const totalSteps = 3;
+
+    // Tips mapping for each step
+    const stepTips = {
+      1: "Declare your credentials with absolute precision. A future leader must start with a flawless profile.",
+      2: "Cutoffs represent the firewall between the average and the elite. Enter your rank honestly—the algorithm has no sympathy.",
+      3: "Tier 1 is reserved for the best. Define where you wish to rule or select a shortcut badge below."
+    };
+
+    function selectGender(val, el) {
+      document.getElementById('genderInput').value = val;
+      document.querySelectorAll('#step1 .card-selector').forEach(card => card.classList.remove('active'));
+      el.classList.add('active');
+    }
+
+    function selectExam(val, el) {
+      document.getElementById('examTypeInput').value = val;
+      document.querySelectorAll('#step2 .card-selector').forEach(card => card.classList.remove('active'));
+      el.classList.add('active');
+    }
+
+    function selectCategory(val, el) {
+      document.getElementById('categoryInput').value = val;
+      document.querySelectorAll('#step2 .pill-selector').forEach(pill => pill.classList.remove('active'));
+      el.classList.add('active');
+    }
+
+    function selectTier(val, el) {
+      document.getElementById('collegeTypeInput').value = val;
+      document.querySelectorAll('#step3 .card-selector').forEach(card => card.classList.remove('active'));
+      el.classList.add('active');
+    }
+
+    function fillLocation(val) {
+      const locationInput = document.getElementById('location');
+      if (locationInput) {
+        locationInput.value = val;
+        locationInput.focus();
+      }
+    }
+
+    function changeStepTo(step) {
+      if (step === currentStep) return;
+      
+      if (step > currentStep) {
+        // Validate intermediate steps first
+        for (let i = currentStep; i < step; i++) {
+          if (!validateStep(i)) return;
+        }
+      }
+      
+      currentStep = step;
+      showStep(currentStep);
+    }
+
+    function changeStep(dir) {
+      if (dir === 1 && !validateStep(currentStep)) {
+        return;
+      }
+      currentStep += dir;
+      showStep(currentStep);
+    }
+
+    function showStep(step) {
+      document.querySelectorAll('.form-step').forEach(stepDiv => stepDiv.classList.remove('active-step'));
+      document.getElementById('step' + step).classList.add('active-step');
+
+      for (let i = 1; i <= totalSteps; i++) {
+        const node = document.getElementById('stepNode' + i);
+        if (node) {
+          if (i === step) {
+            node.classList.add('active');
+            node.classList.remove('completed');
+          } else if (i < step) {
+            node.classList.remove('active');
+            node.classList.add('completed');
+          } else {
+            node.classList.remove('active');
+            node.classList.remove('completed');
+          }
+        }
+      }
+
+      // Vertical progress bar uses height percentages: Step 1 (0%), Step 2 (50%), Step 3 (100%)
+      const barPercent = ((step - 1) / (totalSteps - 1)) * 100;
+      const verticalBar = document.getElementById('verticalProgressBar');
+      if (verticalBar) {
+        verticalBar.style.height = barPercent + '%';
+      }
+
+      // Update tips text dynamically
+      const tipText = document.getElementById('tipText');
+      if (tipText && stepTips[step]) {
+        tipText.innerText = stepTips[step];
+      }
+
+      if (step === 1) {
+        document.getElementById('prevBtn').classList.add('d-none');
+      } else {
+        document.getElementById('prevBtn').classList.remove('d-none');
+      }
+
+      const nextBtn = document.getElementById('nextBtn');
+      if (step === totalSteps) {
+        nextBtn.innerText = 'Find Colleges';
+      } else {
+        nextBtn.innerText = 'Next';
+      }
+    }
+
+    function validateStep(step) {
+      if (step === 1) {
+        const name = document.getElementById('name').value.trim();
+        const hallticket = document.getElementById('hallticket').value.trim();
+        const gender = document.getElementById('genderInput').value;
+
+        if (!name) {
+          alert("Please enter your name.");
+          return false;
+        }
+        if (!hallticket) {
+          alert("Please enter your hall ticket number.");
+          return false;
+        }
+        if (!gender) {
+          alert("Please select your gender.");
+          return false;
+        }
+      } else if (step === 2) {
+        const exam = document.getElementById('examTypeInput').value;
+        const rank = parseInt(document.getElementById('rank').value) || 0;
+        const category = document.getElementById('categoryInput').value;
+
+        if (!exam) {
+          alert("Please select your exam type.");
+          return false;
+        }
+        if (rank <= 0) {
+          alert("Please enter a valid rank.");
+          return false;
+        }
+        if (!category) {
+          alert("Please select a category.");
+          return false;
+        }
+      } else if (step === 3) {
+        const tier = document.getElementById('collegeTypeInput').value;
+        const location = document.getElementById('location').value.trim();
+
+        if (!tier) {
+          alert("Please select your preferred college type (tier).");
+          return false;
+        }
+        if (!location) {
+          alert("Please enter a preferred location.");
+          return false;
+        }
+      }
+      return true;
+    }
+
+    document.getElementById('nextBtn').addEventListener('click', function() {
+      if (currentStep === totalSteps) {
+        if (validateStep(currentStep)) {
+          document.getElementById('wizardForm').submit();
+        }
+      } else {
+        changeStep(1);
+      }
+    });
+  </script>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

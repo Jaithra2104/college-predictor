@@ -1,0 +1,44 @@
+id,name,location,category,tier,cutoff_rank,fees,placements,image_url,official_website
+1,"IIT Delhi",Delhi,General,NULL,5000,200000,"85% placed",https://tse2.mm.bing.net/th?id=OIP._DdGllXFk9csUj8Q5IKDSwAAAA&pid=Api&P=0&h=180,https://www.iitd.ac.in
+2,"IIT Mumbai",Mumbai,General,NULL,4500,210000,"90% placed",https://tse4.mm.bing.net/th?id=OIP.KOok_jgJX4e29G5Su6C2CwHaHy&pid=Api&P=0&h=180,https://www.iitb.ac.in
+3,"IIT Chennai",Chennai,OBC,NULL,6000,190000,"88% placed",https://tse3.mm.bing.net/th?id=OIP.zN59XZkqlJjGp8P5-viNuwHaHa&pid=Api&P=0&h=180,https://www.iitm.ac.in
+4,"IIT Kanpur",Kanpur,General,NULL,5500,195000,"87% placed",https://tse1.mm.bing.net/th?id=OIP.Wojqm6aC4LbY07-7NIQq6gHaHQ&pid=Api&P=0&h=180,https://www.iitk.ac.in
+5,"IIT Kharagpur",Kharagpur,General,NULL,7000,185000,"86% placed",https://tse2.mm.bing.net/th?id=OIP.V09jy3LXtlqqoF-G_rQ82AHaHa&pid=Api&P=0&h=180,https://www.iitkgp.ac.in
+6,"IIT Roorkee",Roorkee,SC,NULL,12000,180000,"80% placed",https://tse3.mm.bing.net/th?id=OIP.vumM2j1rETs1v1Ma1I29BwAAAA&pid=Api&P=0&h=180,https://www.iitr.ac.in
+7,"IIT Guwahati",Guwahati,General,NULL,15000,175000,"78% placed",https://tse2.mm.bing.net/th?id=OIP.4T2VASmvuVVKbmzzsMlPxQAAAA&pid=Api&P=0&h=180,https://www.iitg.ac.in
+8,"IIT Hyderabad",Hyderabad,All,NULL,8500,190000,"82% placed",https://tse3.mm.bing.net/th?id=OIP.Pe0PRwb9M52JJbHMGGoZ2AAAAA&pid=Api&P=0&h=180,https://www.iith.ac.in
+9,"NIT Trichy",Trichy,SC,NULL,15000,150000,"75% placed",https://tse2.mm.bing.net/th?id=OIP.-2Ny2IcNZMsHowEFftNlPQHaHn&pid=Api&P=0&h=180,https://www.nitt.edu
+10,"NIT Warangal",Warangal,ST,NULL,20000,145000,"73% placed",https://tse1.mm.bing.net/th?id=OIP.33cagNAv_MLLYMdX2kRWGgAAAA&pid=Api&P=0&h=180,https://www.nitw.ac.in
+11,"NIT Surathkal",Surathkal,General,NULL,18000,140000,"74% placed",https://tse1.mm.bing.net/th?id=OIP.7CPGJznUVEcT9F3VsELBcQAAAA&pid=Api&P=0&h=180,https://www.nitk.ac.in
+12,"NIT Rourkela",Rourkela,General,NULL,22000,135000,"70% placed",https://tse3.mm.bing.net/th?id=OIP.DFDgdZa0Msjgx6p2BHtYGQAAAA&pid=Api&P=0&h=180,https://www.nitrkl.ac.in
+13,"IIIT Hyderabad",Hyderabad,All,NULL,8000,250000,"92% placed",https://tse4.mm.bing.net/th?id=OIP.CmvR3CBa12CYO7UFTJYrkQHaD4&pid=Api&P=0&h=180,https://www.iiit.ac.in
+14,"IIIT Bangalore",Bangalore,General,NULL,12000,240000,"88% placed",https://tse3.mm.bing.net/th?id=OIP.jNyZQe-h2my4e3tmxBnOqwAAAA&pid=Api&P=0&h=180,https://www.iiitb.ac.in
+15,"BITS Pilani",Pilani,General,NULL,9000,300000,"89% placed",https://tse3.mm.bing.net/th?id=OIP.qWOrojPBp3Bk0lnubqfRcgHaHa&pid=Api&P=0&h=180,https://www.bits-pilani.ac.in
+16,"BITS Hyderabad",Hyderabad,General,NULL,11000,290000,"85% placed",https://tse3.mm.bing.net/th?id=OIP.qWOrojPBp3Bk0lnubqfRcgHaHa&pid=Api&P=0&h=180,https://www.bits-hyderabad.ac.in
+17,"VIT Vellore",Vellore,General,NULL,25000,180000,"80% placed",https://tse1.mm.bing.net/th?id=OIP.CDgE_6AguCedK2zKwOnl9QHaH0&pid=Api&P=0&h=180,https://www.vit.ac.in
+18,"SRM University",Chennai,General,NULL,30000,170000,"75% placed",https://tse3.mm.bing.net/th?id=OIP.rVmE_1BMlVzf0Eo1_la-DgHaHa&pid=Api&P=0&h=180,https://www.srmist.edu.in
+19,"Manipal Institute of Technology",Manipal,General,NULL,28000,200000,"78% placed",https://tse4.mm.bing.net/th?id=OIP.W2tVEcd-J4UFfgB_dEcqVwAAAA&pid=Api&P=0&h=180,https://manipal.edu/mit
+20,DTU,Delhi,General,NULL,16000,150000,"82% placed",https://tse4.mm.bing.net/th?id=OIP.nSmDOENn8ztJM_g2W-96tQHaHa&pid=Api&P=0&h=180,https://www.dtu.ac.in
+21,NSUT,Delhi,General,NULL,17000,155000,"80% placed",https://tse1.mm.bing.net/th?id=OIP.nM189J1rZ4oaNYtuGuE2bwHaC4&pid=Api&P=0&h=180,https://www.nsut.ac.in
+22,"IIIT Allahabad",Allahabad,General,NULL,14000,220000,"85% placed",https://tse3.mm.bing.net/th?id=OIP.kW1xUZz7lUT4Y9q4bG9CiQHaHI&pid=Api&P=0&h=180,https://www.iiita.ac.in
+23,"IIIT Gwalior",Gwalior,General,NULL,20000,190000,"78% placed",https://tse1.mm.bing.net/th?id=OIP.kNsKjMfJeFhXXO_0YJ8mZgHaHa&pid=Api&P=0&h=180,https://www.iiitg.ac.in
+24,"NIT Calicut",Calicut,General,NULL,23000,145000,"75% placed",https://tse4.mm.bing.net/th?id=OIP.eMjfTlyBYvFcWZ6xpwYgMwHaHa&pid=Api&P=0&h=180,https://www.nitc.ac.in
+25,"NIT Jaipur",Jaipur,General,NULL,21000,155000,"77% placed",https://tse4.mm.bing.net/th?id=OIP.Lb91pOeShha2tIwrYEvxVwAAAA&pid=Api&P=0&h=180,https://www.nitjaipur.ac.in
+26,"NIT Bhopal",Bhopal,General,NULL,24000,150000,"76% placed",https://tse2.mm.bing.net/th?id=OIP.OFeaHYENskuT8KVrmcBUXgAAAA&pid=Api&P=0&h=180,https://www.nitb.ac.in
+27,"NIT Durgapur",Durgapur,General,NULL,25000,140000,"73% placed",https://tse4.mm.bing.net/th?id=OIP.RuqAy58qL-tpE1gOUCIJdAHaHa&pid=Api&P=0&h=180,https://www.nitdgp.ac.in
+28,"NIT Kurukshetra",Kurukshetra,General,NULL,22000,148000,"74% placed",https://tse1.mm.bing.net/th?id=OIP.ko1y7BnKxRXFosh-iy1Y6wAAAA&pid=Api&P=0&h=180,https://www.nitkkr.ac.in
+29,"NIT Silchar",Silchar,General,NULL,27000,135000,"70% placed",https://tse3.mm.bing.net/th?id=OIP.1ThZH0cI88gF4JETFW6AXgAAAA&pid=Api&P=0&h=180,https://www.nits.ac.in
+30,"NIT Patna",Patna,General,NULL,29000,130000,"68% placed",https://tse3.mm.bing.net/th?id=OIP.txWNOtlLCChexMgyZiy1XwHaHa&pid=Api&P=0&h=180,https://www.nitp.ac.in
+31,"IIIT Pune",Pune,General,NULL,21000,200000,"82% placed",https://tse1.mm.bing.net/th?id=OIP.DM8Ujiz2KsZQDYmTBxTKoQHaHP&pid=Api&P=0&h=180,https://www.iiitp.ac.in
+32,"IIIT Jabalpur",Jabalpur,General,NULL,22000,195000,"79% placed",https://tse1.mm.bing.net/th?id=OIP.E25GJpL9zqnSUDuVhOPz6AAAAA&pid=Api&P=0&h=180,https://www.iiitdmj.ac.in
+33,"IIIT Bhubaneswar",Bhubaneswar,General,NULL,23000,185000,"76% placed",https://tse2.mm.bing.net/th?id=OIP.SUoBfTzQDWEO3cKdNqZhxQAAAA&pid=Api&P=0&h=180,https://www.iiit-bh.ac.in
+34,"Andhra University College of Engineering",Visakhapatnam,Govt,NULL,3269,180000,"85% placed",https://example.com/image1.jpg,https://www.andhrauniversity.edu.in
+35,"JNTU Kakinada",Kakinada,Govt,NULL,4030,41200,"70% placed",https://example.com/image2.jpg,https://www.jntuk.edu.in
+36,"SRM University Amaravati",Amaravati,Pvt,NULL,5146,1340000,"75% placed",https://example.com/image3.jpg,https://www.srmist.edu.in
+37,"JNTUA College of Engineering, Anantapur",Anantapur,Govt,NULL,6519,100000,"72% placed",https://example.com/image4.jpg,https://www.jntua.ac.in
+38,"Sri Venkateswara University College of Engineering",Tirupati,Govt,NULL,7641,180000,"85% placed",https://example.com/image5.jpg,https://www.svu.edu.in
+39,"IIT Hyderabad",Hyderabad,Govt,NULL,2791,210000,"80% placed",https://example.com/image6.jpg,https://www.iith.ac.in
+40,"Osmania University College of Engineering",Hyderabad,Govt,NULL,5115,150000,"70% placed",https://example.com/image7.jpg,https://www.osmania.ac.in
+41,"Chaitanya Bharathi Institute of Technology",Hyderabad,Pvt,NULL,4558,560000,"88% placed",https://example.com/image8.jpg,https://www.cbit.ac.in
+42,"VNR Vignana Jyothi Institute of Engineering and Technology",Hyderabad,Pvt,NULL,8906,540000,"75% placed",https://example.com/image9.jpg,https://www.vnr.ac.in
+43,"Vasavi College of Engineering",Hyderabad,Pvt,NULL,12409,560000,"80% placed",https://example.com/image10.jpg,https://www.vasavi.ac.in
